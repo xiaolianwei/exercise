@@ -18,6 +18,7 @@
                 }
             }
         })
+        // nextTick是微队列，setTimeout是宏队列，先执行微队列
         vm.msg = 'abcde2';
         setTimeout(() => {
             console.log('这是setTimeout',vm.msg,vm.$el.innerText);
