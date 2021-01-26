@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app">{{ obj }}</div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                arr: [1,2,3],
+                obj: {
+                    name: 'xxx',
+                    age: 18,
+                    sex: '男'
+                }
+            }
+        })
+        // vm.arr[1] = 12;
+        // vm.arr.length = 1;
+        // vm.arr = [4,5,6]
+        // vm.obj.height = 110;
+        // delete vm.obj.sex;
+        // console.log(vm.obj);
+        // vm.arr.reverse()
+        // vm.$set(vm.obj,'height',110)
+        // vm.$delete(vm.arr,2)
+        vm.$delete(vm.obj,'sex')
+    </script>
+</body>
+</html>
