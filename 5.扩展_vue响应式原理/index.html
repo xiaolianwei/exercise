@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const obj = {
+            name: 'xiaolianwei',
+            age: 18,
+            obj2: {
+                name: 'houdonlin',
+                age: 18
+            },
+            arr: [1,2,3,4]
+        }
+        function rander() {
+            console.log('页面渲染了');
+        }
+        const arrayProto = Array.prototype;
+        const arrayMethods  = Object.create(arrayProto);
+        const methodArr = ['push','pop','shift','unshift','splice','sort','reverse'];
+        methodArr.forEach(method => {
+            arrayMethods[method] = function() {
+                arrayProto[method].call(this,...arguments);
+                rander();
+            }
+
+        });
+        function observer(data) {
+            if(Array.isArray(data)){
+                data.__proto__ = arrayMethods;
+                return 
+            }
+            for (const key in data) {
+                defineReactive(data,key,data[key]);
+            }
+        }
+        function defineReactive(data, key, value) {
+            if(typeof value === 'object'){
+                observer(value);
+            }
+            Object.defineProperty(data, key, {
+                get() {
+                    return value
+                },
+                set(newvalue) {
+                    if(value === newvalue) {
+                        return 
+                    }
+                    value = newvalue;
+                    rander();
+                }
+            })
+        }
+        function $set(data,key,value) {
+            if (Array.isArray(data)) {
+                data.splice(key,1,value)
+            }else{
+                defineReactive(data,key,value);
+                rander()
+            }
+            return value;
+        }
+        function $delete(data,key) {
+            if (Array.isArray(data)) {
+                data.splice(key,1)
+            }else{
+                delete data[key];
+                rander()
+            }
+        }
+        observer(obj)
+        // obj.age = 18
+        // obj.arr[0] = 100
+        // obj.arr.reverse()
+        console.log($set(obj,'love','冬冬'))
+        // $set(obj.arr,1,100)
+        // $delete(obj,'obj2')
+        // $delete(obj.arr,0)
+   
+    </script>
+</body>
+
+</html>
