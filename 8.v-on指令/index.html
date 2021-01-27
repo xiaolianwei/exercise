@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app" @[event]="addCount(5,$event)">
+        <p>{{ count }}</p>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data:{
+                count: 0,
+                event: 'click'
+            },
+            methods:{
+                addCount(num,e){
+                    this.count++;
+                    console.log(num);
+                    console.log(e);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

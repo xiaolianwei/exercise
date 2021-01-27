@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app" @click.self="alertDiv">
+        <button @click.once="alertBtn">按钮</button>
+        <input type="text" @click.right.stop="key">
+    </div>
+    <script>
+        //创建Vue实例,得到ViewModel
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {
+                alertBtn(){
+                    alert('button被点击了')
+                },
+                alertDiv(){
+                    alert('div被点击了')
+                },
+                alertInt(){
+                    console.log(123);
+                },
+                key(){
+                    console.log(456);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
