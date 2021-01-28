@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="goods" v-for="(value,goodIndex) in goodsList" :key="value.id">
+            <div class="title">{{ value.title }}：</div>
+            <ul class="type-list">
+                <li :class="['type',type==selected[goodIndex]?'active':'']" @click="active(goodIndex,type)"
+                    v-for="(type,index) in value.typeList" :key="type">{{ type }}</li>
+            </ul>
+        </div>
+        <div class="choose-type">
+            <div>已选条件:</div>
+            <ul class="filter-list" v-if="isShow()">
+                <li v-for="(good,index) in selectedList" :key="good">
+                    {{ good }}
+                    <span class="delete-goods" @click="remove(good,index)">x</span>
+                </li>
+            </ul>
+            <span class="no-goods" v-else>
+                暂时没有选择过滤条件
+            </span>
+        </div>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                goodsList: [
+                    {
+                        title: '上装',
+                        typeList: ['全部', '针织衫', '毛呢外套', 'T恤', '羽绒服', '棉衣', '卫衣', '风衣'],
+                        id: 1,
+                    },
+                    {
+                        title: '裤装',
+                        typeList: ['全部', '牛仔裤', '小脚/铅笔裤', '休闲裤', '打底裤', '哈伦裤'],
+                        id: 2,
+                    },
+                    {
+                        title: '裙装',
+                        typeList: ['全部', '连衣裙', '半身裙', '长袖连衣裙', '中长款连衣裙'],
+                        id: 3,
+                    }
+                ],
+                selected: ['全部', '全部', '全部'],
+                selectedList: {},
+            },
+            methods: {
+                active(goodIndex, type) {
+                    if (type === '全部') return;
+                    this.$set(this.selected, goodIndex, type);
+                },
+                isShow() {
+                    if (this.selected.every(value => value == '全部')) {
+                        return false
+                    }
+                    this.selected.filter((value,index) => {
+                        if(value !== '全部'){
+                            this.selectedList[index] = value;
+                        }
+                        
+                    });
+                    return true;
+                },
+                remove(good, index) {
+                    var i = this.selected.indexOf(good);
+                    this.selected[i] = '全部';
+                    this.$delete(this.selectedList, index);
+                }
+            },
+
+        })
+    </script>
+</body>
+
+</html>
