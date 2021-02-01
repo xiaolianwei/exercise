@@ -26,7 +26,7 @@
                 <span class="mask-num" v-text="ongoingList.length">0</span>
             </h2>
             <ul class="mask-list">
-                <li v-for="task in ongoingList">
+                <li v-for="task in ongoingList" :key="task">
                     <div>
                         <input type="checkbox" @click.prevent="complete(task)">
                         <span>{{ task }}</span>
@@ -41,7 +41,7 @@
                 <span class="mask-num" v-text="completedList.length">0</span>
             </h2>
             <ul class="mask-list complete-list">
-                <li v-for="task in completedList">
+                <li v-for="task in completedList" :key="task">
                     <div>
                         <input type="checkbox" @click.prevent="again(task)">
                         <span>{{ task }}</span>
