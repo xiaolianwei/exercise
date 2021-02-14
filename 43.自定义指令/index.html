@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-slice:5.number="msg">{{ msg }}
+    </div>
+    <script>
+        Vue.directive('myshow', {
+            bind(el, binding) {
+                let { value } = binding;
+                let display = value ? '' : 'none';
+                el.style.display = display
+            },
+            update(el, binding) {
+                let { value } = binding;
+                let display = value ? '' : 'none';
+                el.style.display = display
+            }
+        })
+        Vue.directive('mymodel', {
+            bind(el, binding, vnode) {
+                const vm = vnode.context;
+                let { expression, value } = binding;
+                el.value = value;
+
+                el.oninput = function () {
+                    vm[expression] = this.value
+                }
+            },
+            update(el, binding) {
+                let { value } = binding;
+                el.value = value;
+            }
+        })
+        Vue.directive('slice', {
+            bind(el, binding, vnode) {
+                const vm = vnode.context;
+                let { expression, value, arg, modifiers } = binding;
+
+                if (modifiers.number) {
+                    value = value.replace(/\D/g, '')
+                }
+                el.value = value.slice(0, arg);
+                vm[expression] = el.value;
+
+                el.oninput = function () {
+                    let inputVal = this.value;
+                    if (modifiers.number) {
+                        inputVal = inputVal.replace(/\D/g, '')
+                    }
+
+                    this.value = inputVal.slice(0, arg);
+                    vm[expression] = inputVal.slice(0, arg);
+                }
+            },
+            update(el, binding, vnode) {
+                const vm = vnode.context;
+                let { expression, value, arg, modifiers } = binding;
+
+                if (modifiers.number) {
+                    value = value.replace(/\D/g, '')
+                }
+
+                el.value = value.slice(0, arg);
+                vm[expression] = value.slice(0, arg);
+            }
+        })
+        //创建Vue实例,得到ViewModel
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                show: false,
+                msg: 'dond156onfsgs'
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

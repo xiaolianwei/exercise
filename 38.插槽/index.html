@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <my-cmp v-slot="prop">
+            {{ prop }}
+        </my-cmp>
+    </div>
+    <script>
+        Vue.component('my-cmp', {
+            data() {
+                return {
+                    user:{
+                        name: "冬冬",
+                        age: 18,
+                        sex: "女"
+                    },
+                    user2: {
+                        name: "小小",
+                        age: 18,
+                        sex: "男"
+                    }
+                }
+            },
+            template: `
+                <div >
+                    <slot :user="user" :user2="user2"></slot>
+                </div>
+            `
+        })
+        //创建Vue实例,得到ViewModel
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                str: "啦啦啦"
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

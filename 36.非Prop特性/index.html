@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <my-component :a='check' type="checkbox"></my-component>
+        <input type="checkbox" v-model="check" >
+    </div>
+    <script>
+        Vue.component('my-component',{
+            props:['a'],
+            inheritAttrs: false,
+            data(){
+                return {
+                    // check: false
+                }
+            },
+            mounted(){
+                console.log(typeof this.a);
+            },
+            template: `
+                <label>
+                    咖色 {{ a }}
+                    <input v-bind="$attrs" v-model='a' :bool=a />    
+                </label>
+            `
+        })
+        //创建Vue实例,得到ViewModel
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                check: false
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

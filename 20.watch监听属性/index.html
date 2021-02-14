@@ -15,18 +15,33 @@
         var vm = new Vue({
             el: '#app',
             data: {
-                msg: "slekfj"
+                msg: "slekfj",
+                str: '苦涩积分'
             },
             methods: {},
-            // watch:{
-            //     msg: function (newVal,oldVal) {
-            //         console.log(newVal,oldVal);
-            //     }
-            // }
+            computed:{
+                foo(){
+                    console.log(this.str);
+                    setTimeout(() => {
+                        
+                        console.log(this.msg,'这是计算属性的');
+                        return '发斯洛克家父'
+                    },5000)
+                }
+
+            },
+            watch:{
+                msg: function (newVal,oldVal) {
+                    console.log(newVal,oldVal);
+                    setTimeout(() => {
+                        console.log(this.msg,'这是监听属性的');
+                    },5000)
+                }
+            }
         });
-        vm.$watch('msg',function () {
-            console.log('msg被改变了');
-        })
+        // vm.$watch('msg',function () {
+        //     console.log('msg被改变了');
+        // })
     </script>
 </body>
 

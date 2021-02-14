@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-component></my-component>
+    </div>
+    <div id="app2">
+        <my-component></my-component>
+    </div>
+    <script>
+        Vue.component('my-component',{
+            data(){
+               return {
+                   count: 1
+               }
+            },
+            template: `<div>
+                <span>拉阿拉</span>
+                <button @click="count++">这是一个组件{{ count }}</button>
+                </div>`
+        })
+        const vm = new Vue({
+            el: "#app",
+            /* components: {
+                'myComponent':{
+                    template: `<div>这是一个组件</div>`
+                }
+            }, */
+           /*  template: `<div id="app">
+                            <myComponent></myComponent>
+                        </div>` */
+        })
+        const vm2 = new Vue({
+            el: "#app2",
+            // template:`<span>几十块了房价二十</span>`
+        })
+    </script>
+</body>
+</html>

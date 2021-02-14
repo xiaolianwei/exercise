@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <cmp></cmp>
+    </div>
+    <script>
+        var mixin = {
+            data(){
+                return {
+                    yyy:456
+                }
+            },
+            created(){
+                console.log('这是混入里的created方法');
+            },
+            methods: {
+                sayhello(){
+                    console.log('这是混入里的holle');
+                }
+            }
+        }
+        Vue.component('cmp',{
+            mixins:[mixin],
+            data(){
+                return {
+                    xxx:135
+                }
+            },
+            created(){
+                console.log('这是组件里的created方法');
+            },
+            methods:{
+                sayhello(){
+                    console.log(`这是组件里的Holle`);
+                }
+            },
+            template: `
+                <div>{{ yyy }} {{sayhello()}}</div>
+            `
+        })
+        //创建Vue实例,得到ViewModel
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

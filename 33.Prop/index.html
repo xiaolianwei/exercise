@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="../vue.js"></script>
+    <script src="./axios.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <my-component title="abc" play="123"></my-component> -->
+        <!-- <video-list :video-list="videoList"></video-list> -->
+        <div class="video-list">
+            <video-item v-for="item in videoList" v-bind="item"></video-item>
+        </div>
+        
+    </div>
+    <script>
+        Vue.component('video-list',{
+            props:['video-list'],
+            template: `
+                <div class="video-list">
+                    <video-item 
+                        v-for="item in videoList" 
+                        :play='item.play'
+                        :rank='item.rank'
+                        :title="item.title"
+                        :poster="item.poster"
+                    ></video-item>
+                </div>
+            `
+        })
+        Vue.component('video-item',{
+            props:['play','rank','title','poster'],
+            template: `
+                <div class="video-item">
+                    <div class="poster">
+                        <img :src="poster" alt="">
+                        <div class="info">
+                            <div class="play">{{ play }}</div>
+                            <div class="rank">{{ rank }}</div>
+                        </div>
+                    </div>
+                    <div class="title">{{ title }}</div>
+                </div>
+            `
+        })
+        //创建Vue实例,得到ViewModel
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                videoList: []
+            },
+            created(){
+                axios.get('https://developer.duyiedu.com/vue/bz/video',{
+                    params:{
+                        start: 0,
+                        offset: 12
+                    }
+                }).then(res => {
+                    console.log(res.data);
+                    this.videoList = res.data.data;
+                })
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>
