@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <base-input
+            type="checkbox"
+            :checked.sync="check"
+        ></base-input>
+        {{ check }}
+    </div>
+    <script>
+        Vue.component('base-input',{
+            inheritAttrs: false,
+            model:{
+                prop: 'checked',
+                event: 'update:change',
+            },
+            props:{
+                checked: Boolean 
+            },
+            data(){
+                return {
+                    // fontSize: 1
+                }
+            },
+            template: `
+                <label>
+                    姓名：
+                    <input 
+                        v-bind="$attrs" 
+                        @change="$emit('update:checked',$event.target.checked)"
+                        :checked="checked"
+                    >
+                </label>
+            `
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+               msg:'sfesf',
+               check: true,
+            },
+            methods: {
+               
+            }
+        })
+    </script>
+</body>
+</html>

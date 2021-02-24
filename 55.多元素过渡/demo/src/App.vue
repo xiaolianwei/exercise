@@ -5,9 +5,7 @@
 </template>
 
 <script>
-import BaseDemo from './components/BaseDemo9.vue'
-
-
+import BaseDemo from  './components/BaseDemo4';
 export default {
   name: 'App',
   components: {

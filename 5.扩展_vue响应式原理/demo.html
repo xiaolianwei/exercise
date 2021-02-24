@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const obj = {
+            name: 'xiaolianwei',
+            age: 18,
+            obj2: {
+                name: 'houdonlin',
+                age: 18
+            },
+            arr: [1,2,3,4]
+        }
+        const arrayProto = Array.prototype;
+        const arrayMethods = Object.create(arrayProto);
+        const arrRewriteMethods = ['push','pop','shift','unshift','reverse','sort','splice'];
+        arrRewriteMethods.forEach(method => {
+            arrayMethods[method] = function (){
+                arrayProto[method].apply(this,arguments);
+                rander();
+            }   
+        })
+        function rander(){
+            console.log('渲染页面');
+        }
+        function defineReactive(data,key,value){
+            observer(value)
+            Object.defineProperty(data,key,{
+                get(){
+                    return value
+                },
+                set(newVal){
+                    if(newVal === value){
+                        return ;
+                    }
+                    value = newVal;
+                    rander()
+                }
+            })
+        }
+        function observer(data){
+            if(typeof data !== 'object' || data == null) return;
+            if(Array.isArray(data)){
+                data.__proto__ = arrayMethods;
+                return ;
+            }
+            for(var prop in data){
+                if(data.hasOwnProperty(prop)){
+                    defineReactive(data,prop,data[prop])
+                }
+            }
+        }
+        observer(obj);
+        obj.name = 'dongdong'
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-cmp></my-cmp>
+    </div>
+    <script>
+        Vue.component('my-cmp',{
+            provide(){
+                return {
+                    share: this.share
+                }
+            },
+            data(){
+                return {
+                    share: '冬冬'
+                }
+            },
+            mounted(){
+                // console.log(this.$root.msg);
+                // console.log(this.$parent.msg);
+                this.$once('hook:beforeDestroy',() => {
+                    console.log('组件被销毁了');
+                })
+            },
+            template:`<div>我是my-cmp组件<button @click="$destroy()">销毁</button></div>`
+        })
+        
+        const vm = new Vue({
+            el: '#app',
+            // mounted(){
+            //     console.log(this.$refs);
+            // },
+            data:{
+                msg: 'abc'
+            }
+        })
+    </script>
+</body>
+</html>
