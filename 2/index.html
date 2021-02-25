@@ -6,6 +6,14 @@
     <title>Document</title>
 </head>
 <body>
-    首付款了粉橘色
+    <script>
+        document.cookie = 'name=abc; max-age=5';
+        setTimeout(() => {
+            console.log(document.cookie);
+        }, 4000);
+        setTimeout(() => {
+            console.log(document.cookie);
+        }, 5000);
+    </script>
 </body>
 </html>
