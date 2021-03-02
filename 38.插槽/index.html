@@ -10,8 +10,11 @@
 
 <body>
     <div id="app">
-        <my-cmp v-slot="prop">
+        <!-- <my-cmp v-slot="prop">
             {{ prop }}
+        </my-cmp> -->
+        <my-cmp>
+            几分苦涩理解
         </my-cmp>
     </div>
     <script>
@@ -29,6 +32,9 @@
                         sex: "男"
                     }
                 }
+            },
+            mounted(){
+                console.log(this.$slots.default);
             },
             template: `
                 <div >

@@ -2,7 +2,7 @@
     <div class="demo">
         <button @click="show = !show">click</button>
         <transition
-            :duration="3000"
+            :duration="8000"
             enter-active-class="animate__animated animate__backInRight enter-active"
             leave-active-class="animate__animated animate__bounceOutDown leave-active"
         >

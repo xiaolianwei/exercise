@@ -223,8 +223,6 @@ export default {
         border-top-width: 0;
     }
 
-    .picker-body{}
-
     .picker-header{
         display: flex;
         align-items: center;
