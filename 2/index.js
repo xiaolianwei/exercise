@@ -1,9 +1,17 @@
-var http = require('http');
 
-var server = http.createServer(function(req,res){
-    res.end('holle world')
-})
+var fs = require('fs');
 
-server.listen(8000,'127.0.0.1',function(){
-    console.log('服务器运行在：hppt://localhost');
+fs.open('./my.txt','w',function (err,fd){
+    if(err){
+        return console.log('文件打开失败');
+    }
+    fs.write(fd,'地上都是湿的',function (err,fd2){
+        if(err){
+            return console.log("文件写入失败")
+        }
+        fs.close(fd2,function(err){
+            console.log('文件保存并关闭');
+        })
+    })
 })
+console.log('open后的代码');
