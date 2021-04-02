@@ -1,0 +1,1 @@
+console.log('src文件里的JS');

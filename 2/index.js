@@ -1,17 +1,21 @@
+const fs = require('fs');
+const { dir } = require('node:console');
 
-var fs = require('fs');
+const path = require('path');
 
-fs.open('./my.txt','w',function (err,fd){
-    if(err){
-        return console.log('文件打开失败');
-    }
-    fs.write(fd,'地上都是湿的',function (err,fd2){
-        if(err){
-            return console.log("文件写入失败")
-        }
-        fs.close(fd2,function(err){
-            console.log('文件保存并关闭');
-        })
-    })
+const from = path.resolve(__dirname,'./index.txt');
+const to = path.resolve(__dirname,'./demo.txt');
+
+async function copy(from,to){
+    const context = await fs.promises.readFile(from);
+    await fs.promises.writeFile(to,context);
+    console.log('复制完成');
+}
+
+copy(from,to);
+
+fs.promises.readFile('D:/a.txt').then(data => {
+    console.log(data);
+}, err => {
+    console.error(err);
 })
-console.log('open后的代码');

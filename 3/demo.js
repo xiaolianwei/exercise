@@ -1,13 +1,8 @@
-async function foo() {
-    return Math.random() > 0.5;
-}
+let buf = Buffer.alloc(10);
 
-async function bar(){
-    const result = await foo();
-    console.log(result);
-    return 123
-}
+buf[0] = 88;
+buf[1] = 12;
 
-bar().then(res => {
-    console.log(res);
-})
+for(let i = 0; i < buf.length; i++){
+    console.log(buf[i]);
+}
