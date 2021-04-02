@@ -1,1 +1,0 @@
-console.log('src文件里的demo.js');
