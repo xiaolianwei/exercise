@@ -1,28 +1,31 @@
-const fs = require('fs');
-const path = require('path');
-const dirname = path.resolve(__dirname,'./myfile/demo.txt');
-// fs.readFile(dirname,'utf-8',function(err,result){
-//     console.log(result);
-// })
+const net = require('net');
+const server = net.createServer();
 
-// fs.promises.readFile(dirname,'utf-8').then(res => {
-//     console.log(res);
-// })
+server.on('connection', socket => {
+    console.log('服务器被访问了');
+    socket.on('data', chunk => {
+        console.log(chunk.toString('utf-8'));
+    })
 
-// fs.writeFile(dirname,'追加的',{flag:'a'},function(err,result){
-//     console.log(result);
-// })
+    socket.write(`HTTP/1.1 200 OK
+Content-Type: text/html
 
-// fs.stat(dirname,(err,res) => {
-//     console.log(res.isFile());
-// })
-
-const dirname2 = path.resolve(__dirname,'./myfile/item');
-// fs.readdir(dirname2,(err,res) => {
-//     console.log(res);
-// })
-
-fs.mkdir(dirname2,(err,res) => {
-    // console.log(err);
-    console.log(res);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+<body>
+<h1>思科技术</h1>
+</body>
+</html>`)
+socket.end();
 })
+
+server.on('listening', socket => {
+    console.log('服务器启动了');
+})
+server.listen(3000)
