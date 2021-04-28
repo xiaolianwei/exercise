@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/xiaolianwei/exercise#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "mime": "^2.5.2"
   }
 }
