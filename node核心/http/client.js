@@ -1,6 +1,6 @@
 const http = require('http');
 
-const request = http.request('http://yuanjin.tech:5005/api/movie',{
+const request = http.request('https://sh.meituan.com/ptapi/minsu?cityId=420100',{
     method: "GET"
 },resp => {
     console.log('服务器的状态码',resp.statusCode);
