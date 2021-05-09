@@ -11,14 +11,18 @@
 
 <body>
     <script>
-        $.ajax({
-            url: 'https://chs.meituan.com/ptapi/recommends',
-            type: 'get',
-            dataType: 'json',
-            success: function (res) {
-                console.log(res);
+        var xhr = new XMLHttpRequest();
+        xhr.open('get', 'http://developer.duyiedu.com/edu/testAjaxCrossOrigin');
+        // console.log(xhr.readyState);
+        xhr.onreadystatechange = function () {
+            console.log(xhr.readyState);
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log(JSON.parse(xhr.responseText));
             }
-        })
+        }
+        // console.log(xhr.readyState);
+        xhr.send();
+        // console.log(xhr.readyState);
     </script>
 </body>
 
